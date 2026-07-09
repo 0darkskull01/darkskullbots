@@ -1,5 +1,22 @@
 import React, { useState } from 'react';
-import { Copy, Check, Mail, Coins, ArrowLeft, Heart, ShieldCheck } from 'lucide-react';
+import { Copy, Check, Mail, ArrowLeft, ShieldCheck } from 'lucide-react';
+
+const MoneroLogo = ({ size = 32, style = {} }) => (
+  <svg
+    viewBox="0 0 100 100"
+    width={size}
+    height={size}
+    style={{ display: 'inline-block', verticalAlign: 'middle', ...style }}
+  >
+    {/* Outer ring */}
+    <circle cx="50" cy="50" r="44" stroke="#FF6600" strokeWidth="9" fill="none" />
+    {/* M symbol inside */}
+    <path
+      d="M24 28 H34 V60 L50 44 L66 60 V28 H76 V72 H64 L50 54 L36 72 H24 Z"
+      fill="#FF6600"
+    />
+  </svg>
+);
 
 export default function PaymentPage() {
   const [copied, setCopied] = useState(false);
@@ -43,9 +60,8 @@ export default function PaymentPage() {
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'rgba(189, 0, 255, 0.1)', border: '1px solid rgba(189, 0, 255, 0.2)', padding: '0.4rem 1.1rem', borderRadius: '9999px', fontSize: '0.85rem', fontWeight: 600, color: 'var(--color-secondary)', marginBottom: '1.25rem' }}>
-            <Heart size={13} fill="var(--color-secondary)" />
-            Completa tu pago
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.25rem' }}>
+            <MoneroLogo size={56} />
           </div>
           <h1 style={{ fontSize: '2.6rem', lineHeight: 1.15, letterSpacing: '-0.03em', marginBottom: '0.75rem' }}>
             Adquirir <span className="text-gradient-cyan-purple">Licencia</span>
@@ -84,8 +100,8 @@ export default function PaymentPage() {
 
           {/* Monero Card */}
           <div className="glass-card" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>
-            <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: 'rgba(189, 0, 255, 0.1)', border: '1px solid rgba(189, 0, 255, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-secondary)' }}>
-              <Coins size={20} />
+            <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: 'rgba(255, 102, 0, 0.1)', border: '1px solid rgba(255, 102, 0, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <MoneroLogo size={22} />
             </div>
             <div>
               <h4 style={{ fontSize: '1.05rem', marginBottom: '0.3rem' }}>Monero Wallet</h4>
@@ -93,7 +109,7 @@ export default function PaymentPage() {
             </div>
             <a
               href={`monero:${xmrAddress}`}
-              style={{ background: 'rgba(189, 0, 255, 0.12)', color: '#e0a0ff', fontWeight: 700, fontSize: '0.82rem', textDecoration: 'none', padding: '0.45rem 1rem', borderRadius: '8px', border: '1px solid rgba(189, 0, 255, 0.25)', transition: 'all 0.3s ease' }}
+              style={{ background: 'rgba(255, 102, 0, 0.12)', color: '#ffb380', fontWeight: 700, fontSize: '0.82rem', textDecoration: 'none', padding: '0.45rem 1rem', borderRadius: '8px', border: '1px solid rgba(255, 102, 0, 0.25)', transition: 'all 0.3s ease' }}
             >
               Abrir en Wallet
             </a>
