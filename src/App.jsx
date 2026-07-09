@@ -28,6 +28,8 @@ export default function App() {
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
   useEffect(() => {
+    if (page !== 'home') return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -45,7 +47,7 @@ export default function App() {
     return () => {
       revealElements.forEach((el) => observer.unobserve(el));
     };
-  }, []);
+  }, [page]);
 
   return (
     <>
