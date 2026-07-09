@@ -30,7 +30,6 @@ export default function Header() {
           <li><a href="#ai" className="nav-link">IA Coder</a></li>
           <li><a href="#console" className="nav-link">Consola</a></li>
           <li><a href="#mapart" className="nav-link">MapArt</a></li>
-          <li><a href="#donations" className="nav-link">Donar</a></li>
           <li><a href="#faq" className="nav-link">FAQ</a></li>
           <li><a href="#pricing" className="nav-link">Licencia</a></li>
         </ul>

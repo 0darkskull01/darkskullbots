@@ -10,7 +10,6 @@ import MapArtSimulator from './components/MapArtSimulator';
 import HowItWorks from './components/HowItWorks';
 import Pricing from './components/Pricing';
 import FAQ from './components/FAQ';
-import Donations from './components/Donations';
 import ParticleBackground from './components/ParticleBackground';
 import PaymentPage from './components/PaymentPage';
 
@@ -121,12 +120,6 @@ export default function App() {
           <HowItWorks />
         </div>
 
-        <div className="section-divider"></div>
-
-        {/* 8.5. Donaciones y Soporte */}
-        <div className="reveal">
-          <Donations />
-        </div>
 
         <div className="section-divider"></div>
 
@@ -163,7 +156,6 @@ export default function App() {
               <a href="#modules" className="footer-link">Módulos</a>
               <a href="#ai" className="footer-link">IA Coder</a>
               <a href="#mapart" className="footer-link">MapArt</a>
-              <a href="#donations" className="footer-link">Donar</a>
               <a href="#faq" className="footer-link">FAQ</a>
               <a href="#payment" className="footer-link">Licencia</a>
             </div>
