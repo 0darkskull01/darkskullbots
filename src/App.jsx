@@ -18,11 +18,20 @@ export default function App() {
 
   // Hash-based router
   useEffect(() => {
+    let lastHash = window.location.hash;
+
     const onHashChange = () => {
-      setPage(window.location.hash === '#payment' ? 'payment' : 'home');
-      if (window.location.hash !== '#payment') {
+      const currentHash = window.location.hash;
+      const isPayment = currentHash === '#payment';
+      
+      setPage(isPayment ? 'payment' : 'home');
+
+      // Scroll to top ONLY if transitioning FROM payment to home
+      if (lastHash === '#payment' && !isPayment) {
         window.scrollTo({ top: 0, behavior: 'instant' });
       }
+
+      lastHash = currentHash;
     };
     window.addEventListener('hashchange', onHashChange);
     return () => window.removeEventListener('hashchange', onHashChange);
