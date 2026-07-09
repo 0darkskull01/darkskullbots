@@ -19,7 +19,7 @@ export default function Hero() {
             BotsDarkSkull es la aplicación de escritorio premium más avanzada del mercado. Controla decenas de bots simultáneamente, automatiza tareas complejas con IA en lenguaje natural y domina cualquier servidor con proxies individuales y reconexión automática.
           </p>
           <div className="hero-buttons">
-            <a href="#payment" className="btn btn-primary">
+            <a href="#pricing" className="btn btn-primary">
               <Play size={18} fill="currentColor" />
               Adquirir Licencia
             </a>
