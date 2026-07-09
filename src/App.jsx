@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
@@ -12,8 +12,22 @@ import Pricing from './components/Pricing';
 import FAQ from './components/FAQ';
 import Donations from './components/Donations';
 import ParticleBackground from './components/ParticleBackground';
+import PaymentPage from './components/PaymentPage';
 
 export default function App() {
+  const [page, setPage] = useState(window.location.hash === '#payment' ? 'payment' : 'home');
+
+  // Hash-based router
+  useEffect(() => {
+    const onHashChange = () => {
+      setPage(window.location.hash === '#payment' ? 'payment' : 'home');
+      if (window.location.hash !== '#payment') {
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -43,11 +57,16 @@ export default function App() {
       <div className="neon-orb orb-purple"></div>
       <div className="neon-orb orb-cyan" style={{ bottom: '15%', left: '10%', top: 'auto' }}></div>
 
-      {/* Header */}
-      <Header />
+      {/* === PAYMENT PAGE === */}
+      {page === 'payment' ? (
+        <PaymentPage />
+      ) : (
+        <>
+          {/* Header */}
+          <Header />
 
-      {/* Main Content */}
-      <main>
+          {/* Main Content */}
+          <main>
         {/* 1. Hero */}
         <div className="reveal">
           <Hero />
@@ -126,30 +145,32 @@ export default function App() {
 
       {/* Footer */}
       <footer className="footer">
-        <div className="container footer-container">
-          <div className="footer-info">
-            <div className="footer-logo">
-              <span>Dark<span style={{ color: 'var(--color-primary)' }}>Skull</span>Bots</span>
+          <div className="container footer-container">
+            <div className="footer-info">
+              <div className="footer-logo">
+                <span>Dark<span style={{ color: 'var(--color-primary)' }}>Skull</span>Bots</span>
+              </div>
+              <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '0.5rem' }}>
+                © {new Date().getFullYear()} DarkSkullBots. Todos los derechos reservados.
+              </p>
+              <p style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', maxWidth: '400px', lineHeight: '1.4' }}>
+                Descargo de responsabilidad: Este proyecto es un software independiente y no está afiliado con Mojang Synergies AB, Microsoft Corporation o Minecraft de ninguna manera.
+              </p>
             </div>
-            <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '0.5rem' }}>
-              © {new Date().getFullYear()} DarkSkullBots. Todos los derechos reservados.
-            </p>
-            <p style={{ fontSize: '0.7rem', color: 'var(--color-text-muted)', maxWidth: '400px', lineHeight: '1.4' }}>
-              Descargo de responsabilidad: Este proyecto es un software independiente y no está affiliado, respaldado ni asociado con Mojang Synergies AB, Microsoft Corporation o Minecraft de ninguna manera.
-            </p>
-          </div>
 
-          <div className="footer-links">
-            <a href="#hero" className="footer-link">Inicio</a>
-            <a href="#modules" className="footer-link">Módulos</a>
-            <a href="#ai" className="footer-link">IA Coder</a>
-            <a href="#mapart" className="footer-link">MapArt</a>
-            <a href="#donations" className="footer-link">Donar</a>
-            <a href="#faq" className="footer-link">FAQ</a>
-            <a href="#pricing" className="footer-link">Licencia</a>
+            <div className="footer-links">
+              <a href="#hero" className="footer-link">Inicio</a>
+              <a href="#modules" className="footer-link">Módulos</a>
+              <a href="#ai" className="footer-link">IA Coder</a>
+              <a href="#mapart" className="footer-link">MapArt</a>
+              <a href="#donations" className="footer-link">Donar</a>
+              <a href="#faq" className="footer-link">FAQ</a>
+              <a href="#payment" className="footer-link">Licencia</a>
+            </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+        </>
+      )}
     </>
   );
 }

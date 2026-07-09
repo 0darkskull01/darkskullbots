@@ -36,7 +36,7 @@ export default function Header() {
         </ul>
 
         <div>
-          <a href="#pricing" className="btn btn-outline-cyan" style={{ padding: '0.5rem 1.25rem', fontSize: '0.9rem' }}>
+          <a href="#payment" className="btn btn-outline-cyan" style={{ padding: '0.5rem 1.25rem', fontSize: '0.9rem' }}>
             <Download size={14} />
             Adquirir
           </a>

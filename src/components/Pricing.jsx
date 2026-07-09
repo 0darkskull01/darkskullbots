@@ -49,9 +49,9 @@ export default function Pricing() {
               </li>
             </ul>
 
-            <button className="btn btn-secondary pricing-cta">
+            <a href="#payment" className="btn btn-secondary pricing-cta">
               Adquirir Mensual
-            </button>
+            </a>
           </div>
 
           {/* Lifetime License */}
@@ -83,9 +83,9 @@ export default function Pricing() {
               </li>
             </ul>
 
-            <button className="btn btn-primary pricing-cta">
+            <a href="#payment" className="btn btn-primary pricing-cta">
               Adquirir Vitalicia
-            </button>
+            </a>
           </div>
         </div>
       </div>
