@@ -31,6 +31,16 @@ const MoneroLogoFull = ({ height = 52, style = {} }) => (
   </div>
 );
 
+// Official Discord logo SVG
+const DiscordIcon = ({ size = 32, style = {} }) => (
+  <svg viewBox="0 0 127.14 96.36" width={size} height={size} style={{ display: 'inline-block', verticalAlign: 'middle', ...style }}>
+    <path
+      fill="white"
+      d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.7,77.7,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22h0C129.24,52.84,122.09,29.11,107.7,8.07ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"
+    />
+  </svg>
+);
+
 export default function PaymentPage() {
   const [copied, setCopied] = useState(false);
   const xmrAddress = '49k5ie2JmKKMFUtCAGs7bi6buL2uJN3y4byrCnsuJFj7FfM5gNNybQgTqLhKVprGNoQ9UQWguMZVYfFj3P6W1BgzRXnopgz';
@@ -93,8 +103,8 @@ export default function PaymentPage() {
           </span>
         </div>
 
-        {/* Cards Row */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem', marginBottom: '1.5rem' }}>
+        {/* Cards Row — 3 columns */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem', marginBottom: '1.5rem' }}>
           {/* Email Card */}
           <div className="glass-card" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>
             <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: 'rgba(0, 229, 255, 0.1)', border: '1px solid rgba(0, 229, 255, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--color-primary)' }}>
@@ -109,6 +119,25 @@ export default function PaymentPage() {
               style={{ color: 'var(--color-primary)', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', borderBottom: '1px dashed rgba(0,229,255,0.4)', paddingBottom: '2px', fontFamily: 'var(--font-mono)' }}
             >
               darkskullz01@proton.me
+            </a>
+          </div>
+
+          {/* Discord Card */}
+          <div className="glass-card" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>
+            <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: 'rgba(88, 101, 242, 0.15)', border: '1px solid rgba(88, 101, 242, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#5865F2' }}>
+              <DiscordIcon size={24} />
+            </div>
+            <div>
+              <h4 style={{ fontSize: '1.05rem', marginBottom: '0.3rem' }}>Discord</h4>
+              <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginBottom: '0.85rem', lineHeight: 1.5 }}>Contacto directo y soporte</p>
+            </div>
+            <a
+              href="https://discord.com/users/_darkskull."
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ background: 'rgba(88, 101, 242, 0.15)', color: '#a5b4fc', fontWeight: 700, fontSize: '0.85rem', textDecoration: 'none', padding: '0.45rem 1rem', borderRadius: '8px', border: '1px solid rgba(88, 101, 242, 0.3)', fontFamily: 'var(--font-mono)' }}
+            >
+              _darkskull.
             </a>
           </div>
 
