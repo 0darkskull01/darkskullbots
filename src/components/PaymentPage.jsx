@@ -1,21 +1,34 @@
 import React, { useState } from 'react';
 import { Copy, Check, Mail, ArrowLeft, ShieldCheck } from 'lucide-react';
 
-const MoneroLogo = ({ size = 32, style = {} }) => (
-  <svg
-    viewBox="0 0 100 100"
-    width={size}
-    height={size}
-    style={{ display: 'inline-block', verticalAlign: 'middle', ...style }}
-  >
-    {/* Outer ring */}
-    <circle cx="50" cy="50" r="44" stroke="#FF6600" strokeWidth="9" fill="none" />
-    {/* M symbol inside */}
-    <path
-      d="M24 28 H34 V60 L50 44 L66 60 V28 H76 V72 H64 L50 54 L36 72 H24 Z"
-      fill="#FF6600"
-    />
+// Official Monero logo: icon-only (circle + M)
+const MoneroIcon = ({ size = 32, style = {} }) => (
+  <svg viewBox="0 0 128 128" width={size} height={size} style={{ display: 'inline-block', verticalAlign: 'middle', ...style }}>
+    {/* Orange full circle */}
+    <circle cx="64" cy="64" r="64" fill="#F26822" />
+    {/* Dark grey bottom half-circle overlay */}
+    <path d="M0 64 A64 64 0 0 0 128 64 Z" fill="#4C4C4C" />
+    {/* White M shape */}
+    <path d="M18 96 L18 42 L64 80 L110 42 L110 96 L96 96 L96 58 L64 86 L32 58 L32 96 Z" fill="white" />
+    {/* White center v-notch */}
+    <path d="M64 80 L50 66 L78 66 Z" fill="white" />
   </svg>
+);
+
+// Full logo: icon + MONERO wordmark
+const MoneroLogoFull = ({ height = 52, style = {} }) => (
+  <div style={{ display: 'inline-flex', alignItems: 'center', gap: '14px', ...style }}>
+    <MoneroIcon size={height} />
+    <span style={{
+      fontFamily: "'Arial Black', 'Arial', sans-serif",
+      fontWeight: 900,
+      fontSize: `${height * 0.65}px`,
+      color: '#4C4C4C',
+      letterSpacing: '0.05em',
+      lineHeight: 1,
+      userSelect: 'none',
+    }}>MONERO</span>
+  </div>
 );
 
 export default function PaymentPage() {
@@ -60,8 +73,9 @@ export default function PaymentPage() {
 
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.25rem' }}>
-            <MoneroLogo size={56} />
+          {/* Official Monero Logo */}
+          <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '1.5rem', background: 'rgba(242, 104, 34, 0.06)', border: '1px solid rgba(242, 104, 34, 0.15)', borderRadius: '16px', padding: '1.1rem 2rem', width: 'fit-content', margin: '0 auto 1.5rem' }}>
+            <MoneroLogoFull height={48} />
           </div>
           <h1 style={{ fontSize: '2.6rem', lineHeight: 1.15, letterSpacing: '-0.03em', marginBottom: '0.75rem' }}>
             Adquirir <span className="text-gradient-cyan-purple">Licencia</span>
@@ -100,8 +114,8 @@ export default function PaymentPage() {
 
           {/* Monero Card */}
           <div className="glass-card" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '1rem' }}>
-            <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: 'rgba(255, 102, 0, 0.1)', border: '1px solid rgba(255, 102, 0, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <MoneroLogo size={22} />
+            <div style={{ width: '46px', height: '46px', borderRadius: '50%', background: 'rgba(242, 104, 34, 0.1)', border: '1px solid rgba(242, 104, 34, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <MoneroIcon size={26} />
             </div>
             <div>
               <h4 style={{ fontSize: '1.05rem', marginBottom: '0.3rem' }}>Monero Wallet</h4>
