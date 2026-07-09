@@ -180,6 +180,7 @@ export default function CoderConsole() {
   const [activeTab, setActiveTab] = useState('macro_miner.js');
   const [currentLogs, setCurrentLogs] = useState([]);
   const [isRunning, setIsRunning] = useState(false);
+  const [currentLogIndex, setCurrentLogIndex] = useState(-1);
 
   // Sync activeTab when switching languages
   useEffect(() => {
@@ -187,25 +188,37 @@ export default function CoderConsole() {
     const newExt = lang === 'JS' ? 'js' : 'ts';
     setActiveTab(`${filenameNoExt}.${newExt}`);
     setCurrentLogs([]);
+    setCurrentLogIndex(-1);
+    setIsRunning(false);
   }, [lang]);
+
+  // Safe animation loop for logs
+  useEffect(() => {
+    if (!isRunning || currentLogIndex === -1) return;
+
+    const scriptLogs = SCRIPTS[lang][activeTab]?.logs || [];
+    if (currentLogIndex >= scriptLogs.length) {
+      setIsRunning(false);
+      setCurrentLogIndex(-1);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setCurrentLogs((prev) => {
+        const nextLog = scriptLogs[currentLogIndex];
+        return nextLog ? [...prev, nextLog] : prev;
+      });
+      setCurrentLogIndex((prev) => prev + 1);
+    }, 600);
+
+    return () => clearTimeout(timer);
+  }, [isRunning, currentLogIndex, lang, activeTab]);
 
   const runScript = () => {
     if (isRunning) return;
     setIsRunning(true);
     setCurrentLogs([]);
-
-    const scriptLogs = SCRIPTS[lang][activeTab].logs;
-    let logIndex = 0;
-
-    const interval = setInterval(() => {
-      if (logIndex < scriptLogs.length) {
-        setCurrentLogs((prev) => [...prev, scriptLogs[logIndex]]);
-        logIndex++;
-      } else {
-        setIsRunning(false);
-        clearInterval(interval);
-      }
-    }, 600);
+    setCurrentLogIndex(0);
   };
 
   return (
