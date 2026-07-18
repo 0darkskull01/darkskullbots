@@ -15,115 +15,131 @@ export default function ParticleBackground() {
     let height = (canvas.height = window.innerHeight);
 
     const particles = [];
-    const particleCount = 45;
-    const connectionDistance = 120;
-    const mouse = { x: null, y: null, radius: 150 };
+    const PARTICLE_COUNT = 60;
+    const CONNECTION_DIST = 130;
+    const mouse = { x: null, y: null, radius: 160 };
 
-    // Resize Handler
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
     };
-
-    // Mouse Move Handler
-    const handleMouseMove = (e) => {
-      mouse.x = e.clientX;
-      mouse.y = e.clientY;
-    };
-
-    // Mouse Leave Handler
-    const handleMouseLeave = () => {
-      mouse.x = null;
-      mouse.y = null;
-    };
+    const handleMouseMove = (e) => { mouse.x = e.clientX; mouse.y = e.clientY; };
+    const handleMouseLeave = () => { mouse.x = null; mouse.y = null; };
 
     window.addEventListener('resize', handleResize);
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave);
 
-    // Particle class
+    // Particle colors: mix of cyan, purple, and white
+    const COLORS = [
+      { r: 0, g: 229, b: 255 },   // cyan
+      { r: 176, g: 38, b: 255 },  // purple
+      { r: 0, g: 229, b: 255 },   // cyan (more weight)
+      { r: 57, g: 255, b: 20 },   // green accent (rare)
+      { r: 200, g: 200, b: 230 }, // near-white
+    ];
+
     class Particle {
       constructor() {
+        this.reset(true);
+      }
+      reset(initial = false) {
         this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.4;
-        this.vy = (Math.random() - 0.5) * 0.4;
-        this.radius = Math.random() * 2 + 1;
+        this.y = initial ? Math.random() * height : -5;
+        this.vx = (Math.random() - 0.5) * 0.35;
+        this.vy = (Math.random() - 0.5) * 0.35;
+        this.radius = Math.random() * 1.5 + 0.5;
+        const c = COLORS[Math.floor(Math.random() * COLORS.length)];
+        this.r = c.r; this.g = c.g; this.b = c.b;
+        this.alpha = Math.random() * 0.4 + 0.2;
+        // Subtle pulse
+        this.pulse = Math.random() * Math.PI * 2;
+        this.pulseSpeed = 0.01 + Math.random() * 0.015;
       }
 
       update() {
         this.x += this.vx;
         this.y += this.vy;
+        this.pulse += this.pulseSpeed;
 
-        // Bounce on boundaries
-        if (this.x < 0 || this.x > width) this.vx = -this.vx;
-        if (this.y < 0 || this.y > height) this.vy = -this.vy;
+        if (this.x < -10 || this.x > width + 10) this.vx = -this.vx;
+        if (this.y < -10 || this.y > height + 10) this.vy = -this.vy;
 
-        // Mouse interaction (repel slightly or attract slightly, let's just make connections glow)
+        // Mouse attraction (subtle)
+        if (mouse.x !== null && mouse.y !== null) {
+          const dx = mouse.x - this.x;
+          const dy = mouse.y - this.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < mouse.radius && dist > 0) {
+            const force = (mouse.radius - dist) / mouse.radius * 0.015;
+            this.vx += (dx / dist) * force;
+            this.vy += (dy / dist) * force;
+            // Limit speed
+            const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+            if (speed > 1.2) { this.vx = (this.vx / speed) * 1.2; this.vy = (this.vy / speed) * 1.2; }
+          }
+        }
       }
 
       draw() {
+        const pulseAlpha = this.alpha * (0.85 + 0.15 * Math.sin(this.pulse));
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(0, 229, 255, 0.45)';
+        ctx.fillStyle = `rgba(${this.r}, ${this.g}, ${this.b}, ${pulseAlpha})`;
         ctx.fill();
       }
     }
 
-    // Initialize particles
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
+    for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(new Particle());
 
-    // Animation Loop
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Update and draw particles
-      particles.forEach((p) => {
-        p.update();
-        p.draw();
-      });
-
-      // Draw connections
+      // Draw connections first (below particles)
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const dist = Math.sqrt(dx * dx + dy * dy);
 
-          if (dist < connectionDistance) {
-            let alpha = (1 - dist / connectionDistance) * 0.15;
-            
-            // Mouse interaction: intensify connections near mouse
+          if (dist < CONNECTION_DIST) {
+            let alpha = (1 - dist / CONNECTION_DIST) * 0.12;
+
+            // Intensify near mouse
             if (mouse.x !== null && mouse.y !== null) {
-              const mdx = (particles[i].x + particles[j].x) / 2 - mouse.x;
-              const mdy = (particles[i].y + particles[j].y) / 2 - mouse.y;
-              const mdist = Math.sqrt(mdx * mdx + mdy * mdy);
-              
-              if (mdist < mouse.radius) {
-                alpha = alpha * (1.8 - mdist / mouse.radius) * 1.5;
+              const mx = (particles[i].x + particles[j].x) / 2 - mouse.x;
+              const my = (particles[i].y + particles[j].y) / 2 - mouse.y;
+              const md = Math.sqrt(mx * mx + my * my);
+              if (md < mouse.radius) {
+                alpha *= (1 + (1 - md / mouse.radius) * 2.5);
               }
             }
 
+            // Gradient line between the two particles' colors
+            const grad = ctx.createLinearGradient(
+              particles[i].x, particles[i].y,
+              particles[j].x, particles[j].y
+            );
+            grad.addColorStop(0, `rgba(${particles[i].r}, ${particles[i].g}, ${particles[i].b}, ${alpha})`);
+            grad.addColorStop(1, `rgba(${particles[j].r}, ${particles[j].g}, ${particles[j].b}, ${alpha})`);
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            
-            // Draw cyan-purple gradient connecting lines
-            ctx.strokeStyle = `rgba(176, 38, 255, ${alpha})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 0.7;
             ctx.stroke();
           }
         }
       }
+
+      // Draw and update particles
+      particles.forEach((p) => { p.update(); p.draw(); });
 
       animationFrameId = requestAnimationFrame(animate);
     };
 
     animate();
 
-    // Clean up
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
@@ -142,7 +158,7 @@ export default function ParticleBackground() {
         width: '100%',
         height: '100%',
         zIndex: -8,
-        pointerEvents: 'none'
+        pointerEvents: 'none',
       }}
     />
   );
