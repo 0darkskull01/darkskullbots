@@ -63,15 +63,15 @@ export default function Hero() {
 
         {/* ── Mockup Side ── */}
         <div className="hero-mockup animate-float">
-          <div className="hero-mockup-wrapper">
+          <div className="hero-mockup-wrapper" style={{ borderRadius: '12px' }}>
             {/* Window chrome */}
-            <div className="mockup-header">
-              <div className="mockup-dots">
-                <span className="mockup-dot" />
-                <span className="mockup-dot" />
-                <span className="mockup-dot" />
+            <div className="mockup-header" style={{ height: '48px', padding: '0 1.25rem' }}>
+              <div className="mockup-dots" style={{ gap: '8px' }}>
+                <span className="mockup-dot" style={{ width: '12px', height: '12px' }} />
+                <span className="mockup-dot" style={{ width: '12px', height: '12px' }} />
+                <span className="mockup-dot" style={{ width: '12px', height: '12px' }} />
               </div>
-              <div className="mockup-title">BotsDarkSkull v1.0.0 — Panel Interactivo</div>
+              <div className="mockup-title" style={{ fontSize: '0.85rem', marginLeft: '1rem' }}>BotsDarkSkull v1.0.0 — Panel Interactivo</div>
             </div>
 
             {/* App body */}
@@ -79,8 +79,8 @@ export default function Hero() {
               style={{
                 background: '#090514',
                 display: 'grid',
-                gridTemplateColumns: '60px 1fr',
-                height: '340px',
+                gridTemplateColumns: '75px 1fr',
+                height: '420px',
               }}
             >
               {/* Sidebar */}
@@ -89,8 +89,8 @@ export default function Hero() {
                   borderRight: '1px solid var(--color-border)',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '0.75rem',
-                  padding: '0.75rem 0',
+                  gap: '1.25rem',
+                  padding: '1.25rem 0',
                   alignItems: 'center',
                 }}
               >
@@ -100,15 +100,15 @@ export default function Hero() {
                     onClick={() => setActiveTab(id)}
                     title={label}
                     style={{
-                      width: '34px',
-                      height: '34px',
-                      borderRadius: '8px',
+                      width: '44px',
+                      height: '44px',
+                      borderRadius: '12px',
                       background:
-                        activeTab === id ? 'rgba(0, 240, 255, 0.1)' : 'transparent',
+                        activeTab === id ? 'rgba(0, 240, 255, 0.05)' : 'transparent',
                       border:
                         activeTab === id
-                          ? '1px solid var(--color-primary)'
-                          : '1px solid transparent',
+                          ? '1.5px solid var(--color-primary)'
+                          : '1.5px solid transparent',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
@@ -120,7 +120,7 @@ export default function Hero() {
                       transition: 'all 0.25s ease',
                     }}
                   >
-                    <Icon size={16} />
+                    <Icon size={20} strokeWidth={activeTab === id ? 2.5 : 2} />
                   </button>
                 ))}
               </div>
@@ -128,57 +128,58 @@ export default function Hero() {
               {/* Content panel */}
               <div
                 style={{
-                  padding: '1rem',
+                  padding: '1.5rem',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '0.75rem',
+                  gap: '1.25rem',
                   overflow: 'hidden',
                 }}
               >
                 {/* Dashboard */}
                 {activeTab === 'dashboard' && (
-                  <div className="mockup-tab-content" style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem', height: '100%' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <div style={{ fontSize: '0.82rem', fontWeight: 700 }}>Panel de Squad (4 bots)</div>
-                      <span style={{ fontSize: '0.6rem', background: '#39ff141a', color: 'var(--color-accent)', border: '1px solid rgba(57,255,20,0.2)', padding: '0.15rem 0.5rem', borderRadius: '9999px', fontWeight: 600 }}>
-                        ● Servidor Activo
+                  <div className="mockup-tab-content" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+                      <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>Panel de Squad (4 bots)</div>
+                      <span style={{ fontSize: '0.75rem', background: '#39ff140d', color: 'var(--color-accent)', border: '1px solid rgba(57,255,20,0.3)', padding: '0.25rem 0.75rem', borderRadius: '9999px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                        <span style={{ width: '8px', height: '8px', background: 'var(--color-accent)', borderRadius: '50%', boxShadow: '0 0 8px var(--color-accent)' }}></span>
+                        Servidor Activo
                       </span>
                     </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.45rem', flex: 1 }}>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.85rem', flex: 1 }}>
                       {BOTS.map((bot, idx) => (
                         <div
                           key={idx}
                           style={{
                             background: 'rgba(255,255,255,0.02)',
                             border: '1px solid var(--color-border)',
-                            borderRadius: '6px',
-                            padding: '0.5rem 0.65rem',
+                            borderRadius: '8px',
+                            padding: '1rem 1.25rem',
                             display: 'flex',
                             flexDirection: 'column',
-                            gap: '0.1rem',
+                            gap: '0.4rem',
                           }}
                         >
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                            <span style={{ fontSize: '0.7rem', fontWeight: 700, fontFamily: 'var(--font-mono)', color: 'var(--color-text-primary)' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
+                            <span style={{ fontSize: '0.9rem', fontWeight: 700, fontFamily: 'var(--font-mono)', color: 'var(--color-text-primary)' }}>
                               {bot.name}
                             </span>
                             <span
                               style={{
-                                width: '6px',
-                                height: '6px',
+                                width: '8px',
+                                height: '8px',
                                 borderRadius: '50%',
                                 background: bot.color,
-                                boxShadow: `0 0 6px ${bot.color}`,
+                                boxShadow: `0 0 8px ${bot.color}`,
                                 animation: 'pulse-dot 1.5s infinite',
                               }}
                             />
                           </div>
-                          <div style={{ fontSize: '0.6rem', color: 'var(--color-text-secondary)' }}>{bot.job}</div>
-                          <div style={{ fontSize: '0.55rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>{bot.status}</div>
+                          <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>{bot.job}</div>
+                          <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>{bot.status}</div>
                         </div>
                       ))}
                     </div>
-                    <div style={{ background: '#04020a', border: '1px solid var(--color-border)', borderRadius: '5px', padding: '0.45rem 0.6rem', fontFamily: 'var(--font-mono)', fontSize: '0.6rem', display: 'flex', flexDirection: 'column', gap: '0.1rem' }}>
+                    <div style={{ background: '#04020a', border: '1px solid var(--color-border)', borderRadius: '8px', padding: '0.8rem 1rem', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.5rem' }}>
                       <div style={{ color: 'var(--color-text-muted)' }}>[04:17:10] &lt;System&gt; Inyectando script en DarkMiner_01...</div>
                       <div style={{ color: 'var(--color-primary)' }}>[04:17:11] &lt;DarkMiner_01&gt; Iniciando trayectoria → (120, 64, -200)</div>
                     </div>
@@ -187,12 +188,12 @@ export default function Hero() {
 
                 {/* Terminal */}
                 {activeTab === 'terminal' && (
-                  <div className="mockup-tab-content" style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', height: '100%' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <div style={{ fontSize: '0.82rem', fontWeight: 700 }}>Terminal de Procesos</div>
-                      <span style={{ fontSize: '0.6rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>port :4200</span>
+                  <div className="mockup-tab-content" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', height: '100%' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
+                      <div style={{ fontSize: '1.15rem', fontWeight: 800 }}>Terminal de Procesos</div>
+                      <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>port :4200</span>
                     </div>
-                    <div style={{ flexGrow: 1, background: '#04020a', border: '1px solid var(--color-border)', borderRadius: '6px', padding: '0.65rem', fontFamily: 'var(--font-mono)', fontSize: '0.65rem', color: '#cbd5e1', display: 'flex', flexDirection: 'column', gap: '0.3rem', overflowY: 'auto' }}>
+                    <div style={{ flexGrow: 1, background: '#04020a', border: '1px solid var(--color-border)', borderRadius: '8px', padding: '1.25rem', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#cbd5e1', display: 'flex', flexDirection: 'column', gap: '0.5rem', overflowY: 'auto' }}>
                       <div style={{ color: 'var(--color-text-muted)' }}>$ npm run start -w packages/core</div>
                       <div style={{ color: 'var(--color-accent)' }}>[Fastify] Servidor corriendo en puerto 4200 ✓</div>
                       <div>[SQLite] Base de datos local inicializada.</div>
@@ -207,27 +208,27 @@ export default function Hero() {
 
                 {/* Security */}
                 {activeTab === 'security' && (
-                  <div className="mockup-tab-content" style={{ display: 'flex', flexDirection: 'column', gap: '0.55rem', height: '100%', justifyContent: 'space-between' }}>
+                  <div className="mockup-tab-content" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%', justifyContent: 'space-between' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <div style={{ fontSize: '0.82rem', fontWeight: 700 }}>Seguridad y Proxies</div>
-                      <span style={{ fontSize: '0.6rem', background: 'rgba(0,240,255,0.1)', color: 'var(--color-primary)', border: '1px solid rgba(0,240,255,0.2)', padding: '0.15rem 0.5rem', borderRadius: '9999px', fontWeight: 600 }}>
+                      <div style={{ fontSize: '1.15rem', fontWeight: 800 }}>Seguridad y Proxies</div>
+                      <span style={{ fontSize: '0.75rem', background: 'rgba(0,240,255,0.05)', color: 'var(--color-primary)', border: '1px solid rgba(0,240,255,0.2)', padding: '0.25rem 0.75rem', borderRadius: '9999px', fontWeight: 600 }}>
                         Pool Activo
                       </span>
                     </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                       {[
                         { label: 'Proxies en uso', value: '4 Activos (100% OK)', color: 'var(--color-primary)' },
                         { label: 'Autenticación Offline', value: 'Habilitado (Nativo)', color: 'var(--color-accent)' },
                         { label: 'Bypass Anti-Bot', value: 'Activo (Humanized)', color: 'var(--color-accent)' },
                         { label: 'Cifrado credenciales', value: 'AES-256 SQLite', color: '#ffb900' },
                       ].map(({ label, value, color }) => (
-                        <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.4rem 0.55rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--color-border)', borderRadius: '5px', alignItems: 'center' }}>
-                          <span style={{ fontSize: '0.65rem', color: 'var(--color-text-secondary)' }}>{label}</span>
-                          <span style={{ fontSize: '0.65rem', fontWeight: 700, color, fontFamily: 'var(--font-mono)' }}>{value}</span>
+                        <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.85rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--color-border)', borderRadius: '8px', alignItems: 'center' }}>
+                          <span style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>{label}</span>
+                          <span style={{ fontSize: '0.85rem', fontWeight: 700, color, fontFamily: 'var(--font-mono)' }}>{value}</span>
                         </div>
                       ))}
                     </div>
-                    <div style={{ fontSize: '0.58rem', color: 'var(--color-text-muted)', textAlign: 'center', fontStyle: 'italic' }}>
+                    <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', textAlign: 'center', fontStyle: 'italic', paddingBottom: '0.5rem' }}>
                       Las API Keys nunca se envían a servidores externos.
                     </div>
                   </div>
