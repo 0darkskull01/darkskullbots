@@ -63,66 +63,77 @@ export default function Hero() {
 
         {/* ── Mockup Side ── */}
         <div className="hero-mockup animate-float">
-          <div className="hero-mockup-wrapper" style={{ borderRadius: '12px' }}>
-            {/* Window chrome */}
-            <div className="mockup-header" style={{ height: '48px', padding: '0 1.25rem' }}>
-              <div className="mockup-dots" style={{ gap: '8px' }}>
-                <span className="mockup-dot" style={{ width: '12px', height: '12px' }} />
-                <span className="mockup-dot" style={{ width: '12px', height: '12px' }} />
-                <span className="mockup-dot" style={{ width: '12px', height: '12px' }} />
+          <div className="hero-mockup-wrapper" style={{ borderRadius: '8px', background: '#0a0a0a', border: '1px solid #222' }}>
+            
+            {/* Window chrome (Windows style) */}
+            <div style={{ height: '32px', background: '#0a0a0a', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 1rem', borderBottom: '1px solid #1f1f1f' }}>
+              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+                <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--color-secondary)' }}>BotsDarkSkull</span>
+                <span style={{ fontSize: '0.7rem', color: '#888' }}>01:26</span>
               </div>
-              <div className="mockup-title" style={{ fontSize: '0.85rem', marginLeft: '1rem' }}>BotsDarkSkull v1.0.0 — Panel Interactivo</div>
+              <div style={{ display: 'flex', gap: '1rem', color: '#888', fontSize: '0.8rem' }}>
+                <span style={{ cursor: 'pointer' }}>_</span>
+                <span style={{ cursor: 'pointer' }}>□</span>
+                <span style={{ cursor: 'pointer' }}>×</span>
+              </div>
             </div>
 
             {/* App body */}
             <div
               style={{
-                background: '#090514',
                 display: 'grid',
-                gridTemplateColumns: '75px 1fr',
-                height: '420px',
+                gridTemplateColumns: '130px 1fr',
+                height: '440px',
+                position: 'relative'
               }}
             >
               {/* Sidebar */}
               <div
                 style={{
-                  borderRight: '1px solid var(--color-border)',
+                  borderRight: '1px solid #1f1f1f',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '1.25rem',
-                  padding: '1.25rem 0',
-                  alignItems: 'center',
+                  padding: '0.5rem 0',
+                  background: '#0a0a0a',
+                  overflowY: 'auto'
                 }}
               >
-                {TABS.map(({ id, icon: Icon, label }) => (
-                  <button
+                {[
+                  { id: 'dashboard', icon: Cpu, label: 'Dashboard', active: true },
+                  { id: 'lanzador', icon: Play, label: 'Lanzador' },
+                  { id: 'constructor', icon: Shield, label: 'Constructor' }, // using shield as placeholder for hammer
+                  { id: 'tareas', icon: Terminal, label: 'Tareas' },
+                  { id: 'macros', icon: Terminal, label: 'Macros' },
+                  { id: 'mineria', icon: Terminal, label: 'Minería' },
+                  { id: 'coder', icon: Terminal, label: '</> Coder' },
+                  { id: 'monitoreo', icon: Terminal, label: 'Monitoreo' },
+                  { id: 'anticaptcha', icon: Shield, label: 'AntiCaptcha' },
+                  { id: 'ajustes', icon: Terminal, label: 'Ajustes' },
+                ].map(({ id, icon: Icon, label, active }) => (
+                  <div
                     key={id}
-                    onClick={() => setActiveTab(id)}
-                    title={label}
                     style={{
-                      width: '44px',
-                      height: '44px',
-                      borderRadius: '12px',
-                      background:
-                        activeTab === id ? 'rgba(0, 240, 255, 0.05)' : 'transparent',
-                      border:
-                        activeTab === id
-                          ? '1.5px solid var(--color-primary)'
-                          : '1.5px solid transparent',
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
-                      color:
-                        activeTab === id
-                          ? 'var(--color-primary)'
-                          : 'var(--color-text-muted)',
+                      gap: '0.5rem',
+                      padding: '0.4rem 0.75rem',
+                      margin: '0 0.25rem',
+                      borderRadius: '4px',
+                      background: active ? '#1a1a1a' : 'transparent',
+                      color: active ? '#fff' : '#888',
+                      fontSize: '0.7rem',
                       cursor: 'pointer',
-                      transition: 'all 0.25s ease',
+                      borderLeft: active ? '2px solid var(--color-secondary)' : '2px solid transparent'
                     }}
                   >
-                    <Icon size={20} strokeWidth={activeTab === id ? 2.5 : 2} />
-                  </button>
+                    <Icon size={12} />
+                    {label}
+                  </div>
                 ))}
+                
+                <div style={{ marginTop: 'auto', padding: '1rem', fontSize: '0.6rem', color: '#555', textAlign: 'center' }}>
+                  by _DarkSkull
+                </div>
               </div>
 
               {/* Content panel */}
@@ -131,108 +142,85 @@ export default function Hero() {
                   padding: '1.5rem',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '1.25rem',
+                  gap: '1.5rem',
                   overflow: 'hidden',
+                  position: 'relative',
+                  background: '#0e0e11' // Slightly different background for main area
                 }}
               >
-                {/* Dashboard */}
-                {activeTab === 'dashboard' && (
-                  <div className="mockup-tab-content" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
-                      <div style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--color-text-primary)' }}>Panel de Squad (4 bots)</div>
-                      <span style={{ fontSize: '0.75rem', background: '#39ff140d', color: 'var(--color-accent)', border: '1px solid rgba(57,255,20,0.3)', padding: '0.25rem 0.75rem', borderRadius: '9999px', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                        <span style={{ width: '8px', height: '8px', background: 'var(--color-accent)', borderRadius: '50%', boxShadow: '0 0 8px var(--color-accent)' }}></span>
-                        Servidor Activo
-                      </span>
-                    </div>
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.85rem', flex: 1 }}>
-                      {BOTS.map((bot, idx) => (
-                        <div
-                          key={idx}
-                          style={{
-                            background: 'rgba(255,255,255,0.02)',
-                            border: '1px solid var(--color-border)',
-                            borderRadius: '8px',
-                            padding: '1rem 1.25rem',
-                            display: 'flex',
-                            flexDirection: 'column',
-                            gap: '0.4rem',
-                          }}
-                        >
-                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.25rem' }}>
-                            <span style={{ fontSize: '0.9rem', fontWeight: 700, fontFamily: 'var(--font-mono)', color: 'var(--color-text-primary)' }}>
-                              {bot.name}
-                            </span>
-                            <span
-                              style={{
-                                width: '8px',
-                                height: '8px',
-                                borderRadius: '50%',
-                                background: bot.color,
-                                boxShadow: `0 0 8px ${bot.color}`,
-                                animation: 'pulse-dot 1.5s infinite',
-                              }}
-                            />
+                {/* Fake particles background pattern */}
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  backgroundImage: 'radial-gradient(circle at 20% 30%, rgba(176, 38, 255, 0.05) 0%, transparent 40%), radial-gradient(circle at 80% 70%, rgba(0, 229, 255, 0.05) 0%, transparent 40%)',
+                  pointerEvents: 'none'
+                }} />
+
+                {/* Header */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
+                  <div>
+                    <h2 style={{ fontSize: '1.3rem', fontWeight: 700, color: '#fff', marginBottom: '0.1rem' }}>Resumen de Bots</h2>
+                    <p style={{ fontSize: '0.75rem', color: '#888' }}>Gestión de tus bots de Minecraft</p>
+                  </div>
+                  <div style={{ display: 'flex', gap: '0.5rem' }}>
+                    {['Poner spawn en cama', 'Desconectar Todo', 'Conectar Todo'].map(btn => (
+                      <button key={btn} style={{ background: 'transparent', border: '1px solid #333', color: '#ccc', padding: '0.3rem 0.6rem', borderRadius: '4px', fontSize: '0.65rem', cursor: 'pointer' }}>
+                        {btn}
+                      </button>
+                    ))}
+                    <button style={{ background: 'transparent', border: '1px solid #444', color: '#fff', padding: '0.3rem 0.6rem', borderRadius: '4px', fontSize: '0.65rem', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                      <span>+</span> Connect Bot
+                    </button>
+                  </div>
+                </div>
+
+                {/* Grid */}
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1rem', position: 'relative', zIndex: 1 }}>
+                  {[
+                    { id: '01', ip: 'infection.fun:25565', status: 'disconnected' },
+                    { id: '02', ip: 'infection.fun:25565', status: 'disconnected' },
+                    { id: '03', ip: 'infection.fun:25565', status: 'disconnected' },
+                    { id: '04', ip: 'infection.fun:25565', status: 'disconnected' },
+                  ].map(bot => (
+                    <div key={bot.id} style={{ background: 'rgba(255,255,255,0.015)', border: '1px solid #1a1a1a', borderRadius: '8px', padding: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+                        <div style={{ display: 'flex', gap: '0.75rem' }}>
+                          <div style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#888' }}>
+                            <Shield size={14} />
                           </div>
-                          <div style={{ fontSize: '0.8rem', color: 'var(--color-text-secondary)' }}>{bot.job}</div>
-                          <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>{bot.status}</div>
+                          <div>
+                            <div style={{ fontSize: '0.85rem', fontWeight: 600, color: '#fff' }}>farmbot{bot.id}</div>
+                            <div style={{ fontSize: '0.6rem', color: '#666' }}>ID: bot-17844200{bot.id}121</div>
+                          </div>
                         </div>
-                      ))}
-                    </div>
-                    <div style={{ background: '#04020a', border: '1px solid var(--color-border)', borderRadius: '8px', padding: '0.8rem 1rem', fontFamily: 'var(--font-mono)', fontSize: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.3rem', marginTop: '0.5rem' }}>
-                      <div style={{ color: 'var(--color-text-muted)' }}>[04:17:10] &lt;System&gt; Inyectando script en DarkMiner_01...</div>
-                      <div style={{ color: 'var(--color-primary)' }}>[04:17:11] &lt;DarkMiner_01&gt; Iniciando trayectoria → (120, 64, -200)</div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Terminal */}
-                {activeTab === 'terminal' && (
-                  <div className="mockup-tab-content" style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', height: '100%' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
-                      <div style={{ fontSize: '1.15rem', fontWeight: 800 }}>Terminal de Procesos</div>
-                      <span style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', fontFamily: 'var(--font-mono)' }}>port :4200</span>
-                    </div>
-                    <div style={{ flexGrow: 1, background: '#04020a', border: '1px solid var(--color-border)', borderRadius: '8px', padding: '1.25rem', fontFamily: 'var(--font-mono)', fontSize: '0.85rem', color: '#cbd5e1', display: 'flex', flexDirection: 'column', gap: '0.5rem', overflowY: 'auto' }}>
-                      <div style={{ color: 'var(--color-text-muted)' }}>$ npm run start -w packages/core</div>
-                      <div style={{ color: 'var(--color-accent)' }}>[Fastify] Servidor corriendo en puerto 4200 ✓</div>
-                      <div>[SQLite] Base de datos local inicializada.</div>
-                      <div>[Socket.io] Conexiones entrantes listas.</div>
-                      <div style={{ color: 'var(--color-primary)' }}>[Mineflayer] Conectando 4 bots a mc.server:25565...</div>
-                      <div style={{ color: 'var(--color-accent)' }}>[Mineflayer] Conexión establecida. Registrando eventos.</div>
-                      <div>[Ollama] Modelo DeepSeek-Coder activo en memoria.</div>
-                      <div style={{ color: '#ffb900' }}>[Licencia] Licencia vitalicia verificada ✓</div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Security */}
-                {activeTab === 'security' && (
-                  <div className="mockup-tab-content" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', height: '100%', justifyContent: 'space-between' }}>
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                      <div style={{ fontSize: '1.15rem', fontWeight: 800 }}>Seguridad y Proxies</div>
-                      <span style={{ fontSize: '0.75rem', background: 'rgba(0,240,255,0.05)', color: 'var(--color-primary)', border: '1px solid rgba(0,240,255,0.2)', padding: '0.25rem 0.75rem', borderRadius: '9999px', fontWeight: 600 }}>
-                        Pool Activo
-                      </span>
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                      {[
-                        { label: 'Proxies en uso', value: '4 Activos (100% OK)', color: 'var(--color-primary)' },
-                        { label: 'Autenticación Offline', value: 'Habilitado (Nativo)', color: 'var(--color-accent)' },
-                        { label: 'Bypass Anti-Bot', value: 'Activo (Humanized)', color: 'var(--color-accent)' },
-                        { label: 'Cifrado credenciales', value: 'AES-256 SQLite', color: '#ffb900' },
-                      ].map(({ label, value, color }) => (
-                        <div key={label} style={{ display: 'flex', justifyContent: 'space-between', padding: '0.85rem 1rem', background: 'rgba(255,255,255,0.02)', border: '1px solid var(--color-border)', borderRadius: '8px', alignItems: 'center' }}>
-                          <span style={{ fontSize: '0.85rem', color: 'var(--color-text-secondary)' }}>{label}</span>
-                          <span style={{ fontSize: '0.85rem', fontWeight: 700, color, fontFamily: 'var(--font-mono)' }}>{value}</span>
+                        <button style={{ width: '28px', height: '28px', borderRadius: '6px', background: 'transparent', border: '1px solid #333', color: '#888', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
+                          <span style={{ fontSize: '10px' }}>⏻</span>
+                        </button>
+                      </div>
+                      
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.65rem', color: '#888' }}>
+                          <span style={{ fontSize: '10px' }}>((•))</span> {bot.ip}
                         </div>
-                      ))}
+                        <div style={{ fontSize: '0.65rem', color: '#666' }}>
+                          {bot.status}
+                        </div>
+                      </div>
                     </div>
-                    <div style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', textAlign: 'center', fontStyle: 'italic', paddingBottom: '0.5rem' }}>
-                      Las API Keys nunca se envían a servidores externos.
+                  ))}
+                </div>
+
+                {/* Activity Log */}
+                <div style={{ marginTop: '1rem', position: 'relative', zIndex: 1 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                    <div style={{ color: '#fff' }}>
+                      <Terminal size={14} />
                     </div>
+                    <h3 style={{ fontSize: '0.85rem', fontWeight: 600, color: '#fff' }}>Registro de Actividad</h3>
                   </div>
-                )}
+                  <p style={{ fontSize: '0.75rem', color: '#888' }}>No hay tareas ejecutadas en esta sesión.</p>
+                </div>
+
               </div>
             </div>
           </div>
