@@ -38,7 +38,6 @@ function Footer() {
           {/* Brand column */}
           <div className="footer-brand">
             <a href="#hero" className="footer-logo">
-              <span style={{ background: 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))', borderRadius: '7px', width: '28px', height: '28px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1rem', flexShrink: 0 }}>💀</span>
               Dark<span style={{ color: 'var(--color-primary)' }}>Skull</span>Bots
             </a>
             <p className="footer-brand-desc">

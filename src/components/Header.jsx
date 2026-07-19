@@ -49,7 +49,6 @@ export default function Header() {
       <header className={`header ${isScrolled ? 'header-scrolled' : ''}`}>
         <div className="container nav-container">
           <a href="#hero" className="logo">
-            <div className="logo-skull" aria-hidden="true">💀</div>
             <span>Dark<span style={{ color: 'var(--color-primary)' }}>Skull</span>Bots</span>
           </a>
 
